@@ -1,17 +1,24 @@
 package com.googlemusic.api.entities;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
+@Entity
+@Table(name = "tb_luthier")
 public class Luthier {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idLuthier;
 	
+	@NotBlank(message = "O nome é obrigatório")
 	protected String nome;
 
+	@NotBlank(message = "A especialidade é obrigatória")
 	protected String especialidade;
 
 	protected String cidade;
