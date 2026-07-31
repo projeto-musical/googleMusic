@@ -1,4 +1,4 @@
-package com.googlemusic.api.entities;
+ackage com.googlemusic.api.entities;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
