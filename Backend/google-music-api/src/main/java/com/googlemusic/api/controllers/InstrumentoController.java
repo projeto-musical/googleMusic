@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/instrumentos")
 public class InstrumentoController {
-
+  
 	@Autowired
 	private InstrumentoService service;
 

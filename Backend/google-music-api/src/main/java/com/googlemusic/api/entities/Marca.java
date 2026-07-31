@@ -10,9 +10,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
-public class Marca {
+@Table(name = "tb_marca")
+ class Marca {
 
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
