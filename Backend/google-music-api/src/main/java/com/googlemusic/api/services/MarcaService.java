@@ -84,8 +84,8 @@ public class MarcaService {
         if (existente.isPresent()) {
             Marca marca = existente.get();
 
-            marca.setNomeMarca(marcaAtualizada.getNomeMarca());
-            marca.setDescricaoMarca(marcaAtualizada.getDescricaoMarca());
+            marca.setNome(marcaAtualizada.getNome());
+            marca.setPaisOrigem(marcaAtualizada.getPaisOrigem());
 
             return repository.save(marca);
         }
