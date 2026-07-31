@@ -1,61 +1,60 @@
 package com.googlemusic.api.entities;
 
-import jakarta.persistence.Column;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.OneToMany;
 
 @Entity
-@Table(name = "tb_marca")
 public class Marca {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
-	
-	@Column(name = "nome_marca", nullable = false, length = 120) private String nomeMarca;
-	
-	@Column(name = "descricao_marca", length = 200) private String descricaoMarca;
-	
-	public Marca() {}
-	
-	public Marca(String nomeMarca, String descricaoMarca) {
+
+		@Id
+		@GeneratedValue(strategy = GenerationType.IDENTITY)
+		private Long idMarca;
+
+		private String nome;
+
+		private String paisOrigem;
 		
-		this.nomeMarca = nomeMarca;
-		this.descricaoMarca = descricaoMarca;
-	}
+		@OneToMany(mappedBy = "marca")
+		@JsonIgnore 
+		private List<Instrumento> instrumentos = new ArrayList<>();
 
-	public Long getId() {
-		return id;
-	}
+		public Marca() {
+		}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+		public Marca(String nome, String paisOrigem) {
+			this.nome = nome;
+			this.paisOrigem = paisOrigem;
+		}
 
-	public String getNomeMarca() {
-		return nomeMarca;
-	}
+		public Long getIdMarca() {
+			return idMarca;
+		}
 
-	public void setNomeMarca(String nomeMarca) {
-		this.nomeMarca = nomeMarca;
-	}
+		public void setIdMarca(Long idMarca) {
+			this.idMarca = idMarca;
+		}
 
-	public String getDescricaoMarca() {
-		return descricaoMarca;
-	}
+		public String getNome() {
+			return nome;
+		}
 
-	public void setDescricaoMarca(String descricaoMarca) {
-		this.descricaoMarca = descricaoMarca;
-	}
-	
-	
+		public void setNome(String nome) {
+			this.nome = nome;
+		}
 
-	
-	
+		public String getPaisOrigem() {
+			return paisOrigem;
+		}
+
+		public void setPaisOrigem(String paisOrigem) {
+			this.paisOrigem = paisOrigem;
+		}	
 }
-
-
-
-
