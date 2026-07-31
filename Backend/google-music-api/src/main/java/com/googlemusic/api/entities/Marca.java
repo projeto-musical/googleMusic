@@ -14,49 +14,57 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_marca")
- class Marca {
+public class Marca {
 
-		@Id
-		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		private Long idMarca;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idMarca;
 
-		private String nome;
+    private String nome;
 
-		private String paisOrigem;
-		
-		@OneToMany(mappedBy = "marca")
-		@JsonIgnore 
-		private List<Instrumento> instrumentos = new ArrayList<>();
+    private String paisOrigem;
 
-		public Marca() {
-		}
+    @OneToMany(mappedBy = "marca")
+    @JsonIgnore
+    private List<Instrumento> instrumentos = new ArrayList<>();
 
-		public Marca(String nome, String paisOrigem) {
-			this.nome = nome;
-			this.paisOrigem = paisOrigem;
-		}
+    public Marca() {
+    }
 
-		public Long getIdMarca() {
-			return idMarca;
-		}
+    public Marca(String nome, String paisOrigem) {
+        this.nome = nome;
+        this.paisOrigem = paisOrigem;
+    }
 
-		public void setIdMarca(Long idMarca) {
-			this.idMarca = idMarca;
-		}
+    public Long getIdMarca() {
+        return idMarca;
+    }
 
-		public String getNome() {
-			return nome;
-		}
+    public void setIdMarca(Long idMarca) {
+        this.idMarca = idMarca;
+    }
 
-		public void setNome(String nome) {
-			this.nome = nome;
-		}
+    public String getNome() {
+        return nome;
+    }
 
-		public String getPaisOrigem() {
-			return paisOrigem;
-		}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-		public void setPaisOrigem(String paisOrigem) {
-			this.paisOrigem = paisOrigem;
-		}	
+    public String getPaisOrigem() {
+        return paisOrigem;
+    }
+
+    public void setPaisOrigem(String paisOrigem) {
+        this.paisOrigem = paisOrigem;
+    }
+
+    public List<Instrumento> getInstrumentos() {
+        return instrumentos;
+    }
+
+    public void setInstrumentos(List<Instrumento> instrumentos) {
+        this.instrumentos = instrumentos;
+    }
 }

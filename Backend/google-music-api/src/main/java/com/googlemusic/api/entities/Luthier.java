@@ -19,19 +19,19 @@ public class Luthier {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idLuthier;
+	private Long id;
 	
 	@NotBlank(message = "O nome é obrigatório")
-	protected String nome;
+	private String nome;
 
 	@NotBlank(message = "A especialidade é obrigatória")
-	protected String especialidade;
+	private String especialidade;
 
-	protected String cidade;
+	private String cidade;
 
-	protected String email;
+	private String email;
 
-	protected String telefone;
+	private String telefone;
 	
 	@OneToMany(mappedBy = "luthier")
 	@JsonIgnore 
@@ -48,14 +48,6 @@ public class Luthier {
 		this.cidade = cidade;
 		this.email = email;
 		this.telefone = telefone;
-	}
-
-	public Long getIdLuthier() {
-		return idLuthier;
-	}
-
-	public void setIdLuthier(Long idLuthier) {
-		this.idLuthier = idLuthier;
 	}
 
 	public String getNome() {
