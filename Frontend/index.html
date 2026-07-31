@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="./style/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
@@ -25,10 +24,10 @@
             </div>
 
             <nav class="nav-tabs">
-                <a href="/index.html" class="tab-btn">
+                <a href="/index.html" class="tab-btn active">
                     <i class="fa-solid fa-layer-group"></i> Instrumentos
                 </a>
-                <a href="/pages/cadastroInstrumento.html" class="tab-btn active">
+                <a href="/pages/cadastroInstrumento.html" class="tab-btn">
                     <i class="fa-solid fa-plus"></i> Instrumento
                 </a>
                 <a href="/pages/cadastroMarca.html" class="tab-btn">
@@ -55,10 +54,11 @@
                     </div>
                     <div class="search-box">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" id="search-input" placeholder="Filtrar registros..." class="form-control">
+                        <input type="text" id="search-input" placeholder="Filtrar registros..." class="form-control" onkeyup="filtrarTabela()">
                     </div>
                 </div>
 
+                <!-- ESTRUTURA EM TABELA / COLUNAS -->
                 <div class="table-container">
                     <table>
                         <thead>
@@ -72,21 +72,18 @@
                             </tr>
                         </thead>
                         <tbody id="instrumentos-list">
-                            <main class="conteudo">
-                                <div id="listaFilmes" class="container-grid"></div>
-                            </main>
+                            <!-- O JS renderizará as tr/td aqui -->
                         </tbody>
                     </table>
-                    <div id="empty-state" class="empty-state">
-                        <i class="fa-solid fa-box-open"></i>
-                        <p>Nenhum instrumento encontrado.</p>
-                    </div>
                 </div>
+
             </div>
         </section>
     </main>
 
-    <script src="script/script.js"></script>
+    <!-- Conexão com o seu script JS -->
+     <script src="script/script.js"></script>
+    <script src="script/listarInstrumentos.js"></script>
 </body>
 
 </html>
