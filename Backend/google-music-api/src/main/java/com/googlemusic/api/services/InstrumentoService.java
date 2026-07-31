@@ -12,48 +12,47 @@ import com.googlemusic.api.repositories.InstrumentoRepository;
 @Service
 public class InstrumentoService {
 
-		@Autowired
-		private InstrumentoRepository repository;
-		
-		@Autowired
-		private InstrumentoService InstrumentoService; 
+	@Autowired
+	private InstrumentoRepository repository;
 
-		public List<Instrumento> listarTodos() {
-			return repository.findAll();
-		}
-
-		public Optional <Instrumento> buscarPorId(Long id) {
-			return repository.findById(id);
-		}
-
-		public Instrumento salvar(Instrumento instrumento) {
-			Instrumento InstrumentoNovo = new Instrumento();
-			
-			InstrumentoNovo.setAnoFabricacao(InstrumentoNovo.getAnoFabricacao());
-			InstrumentoNovo.setDescricao(InstrumentoNovo.getDescricao());
-			InstrumentoNovo.setNomeModelo(InstrumentoNovo.getNomeModelo());
-			InstrumentoNovo.setNumeroSerie(InstrumentoNovo.getNumeroSerie());
-			
-			InstrumentoService.salvar(InstrumentoNovo);
-			return repository.save(instrumento);
-}
-		
-		public Instrumento atualizar(Long id, Instrumento instrumento) {
-		    Instrumento instrumentoExistente = repository.findById(id)
-		        .orElseThrow(() -> new RuntimeException("Instrumento não encontrado"));
-
-		    instrumentoExistente.setAnoFabricacao(instrumento.getAnoFabricacao());
-		    instrumentoExistente.setDescricao(instrumento.getDescricao());
-		    instrumentoExistente.setNomeModelo(instrumento.getNomeModelo());
-		    instrumentoExistente.setNumeroSerie(instrumento.getNumeroSerie());
-
-		    return repository.save(instrumentoExistente);
-		}
-
-		public void deletar(Long id) {
-			repository.deleteById(id);
-		}
+	// Listar todos os instrumentos
+	public List<Instrumento> listarTodos() {
+		return repository.findAll();
 	}
 
-	
+	// Buscar por ID
+	public Optional<Instrumento> buscarPorId(Long id) {
+		return repository.findById(id);
+	}
 
+	// Salvar um novo instrumento
+	public Instrumento salvar(Instrumento instrumento) {
+		return repository.save(instrumento);
+	}
+
+	// Atualizar instrumento existente
+	public Instrumento atualizar(Long id, Instrumento instrumento) {
+		Instrumento instrumentoExistente = repository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Instrumento não encontrado com o ID: " + id));
+
+		instrumentoExistente.setAnoFabricacao(instrumento.getAnoFabricacao());
+		instrumentoExistente.setDescricao(instrumento.getDescricao());
+		instrumentoExistente.setNomeModelo(instrumento.getNomeModelo());
+		instrumentoExistente.setNumeroSerie(instrumento.getNumeroSerie());
+
+		// Atualizando os relacionamentos
+		instrumentoExistente.setFamilia(instrumento.getFamilia());
+		instrumentoExistente.setMarca(instrumento.getMarca());
+		instrumentoExistente.setLuthier(instrumento.getLuthier());
+
+		return repository.save(instrumentoExistente);
+	}
+
+	// Deletar por ID
+	public void deletar(Long id) {
+		if (!repository.existsById(id)) {
+			throw new RuntimeException("Instrumento não encontrado com o ID: " + id);
+		}
+		repository.deleteById(id);
+	}
+}

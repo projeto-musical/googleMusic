@@ -1,5 +1,9 @@
 package com.googlemusic.api.repositories;
 
-public class MarcaRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.googlemusic.api.entities.Marca;
+
+public interface MarcaRepository extends JpaRepository<Marca, Long>{
 
 }
