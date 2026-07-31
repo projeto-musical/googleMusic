@@ -92,7 +92,6 @@
             font-size: 0.9rem;
         }
 
-<<<<<<< HEAD:Frontend/style/style.css
 .tab-btn {
     background: transparent;
     border: none;
@@ -107,11 +106,9 @@
     gap: 6px;
     text-decoration: none; /* Ajuste para as tags <a> */
 }
-=======
         .logo strong {
             color: var(--primary);
         }
->>>>>>> feature/style-home-page:Frontend/style.css
 
         .nav-tabs {
             display: flex;
