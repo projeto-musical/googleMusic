@@ -21,27 +21,24 @@ import com.googlemusic.api.services.LuthierService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/luthiers")
+@RequestMapping("/api/luthiers")
 @CrossOrigin("*")
 public class LuthierController {
     
     @Autowired
     private LuthierService service;
 
-    // Cadastrar um novo luthier
     @PostMapping
     public ResponseEntity<Luthier> cadastrar(@Valid @RequestBody Luthier luthier) {
         Luthier luthierSalvo = service.salvar(luthier);
         return ResponseEntity.status(HttpStatus.CREATED).body(luthierSalvo);
     }
 
-    // Listar todos os luthiers
     @GetMapping
     public ResponseEntity<List<Luthier>> listarTodos() {
         return ResponseEntity.ok(service.listarTodos());
     }
 
-    // Buscar luthier por ID
     @GetMapping("/{id}")
     public ResponseEntity<Luthier> buscarPorId(@PathVariable Long id) {
         return service.buscarPorId(id)
@@ -49,7 +46,6 @@ public class LuthierController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Atualizar um luthier existente
     @PutMapping("/{id}")
     public ResponseEntity<Luthier> atualizar(
             @PathVariable Long id,
@@ -63,7 +59,6 @@ public class LuthierController {
         }
     }
 
-    // Deletar / Excluir um luthier
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         try {

@@ -21,7 +21,7 @@ import com.googlemusic.api.services.InstrumentoService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/instrumentos")
+@RequestMapping("/api/instrumentos")
 public class InstrumentoController {
 
 	@Autowired
