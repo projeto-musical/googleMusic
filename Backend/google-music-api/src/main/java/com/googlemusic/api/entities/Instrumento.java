@@ -1,6 +1,4 @@
-
-<<<<<<< HEAD
-=======
+package com.googlemusic.api.entities;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
@@ -124,4 +122,3 @@ public class Instrumento {
 
 	}
 }
->>>>>>> a913acdfa2a5606ae5da6c3f99eca8c7222b70ef

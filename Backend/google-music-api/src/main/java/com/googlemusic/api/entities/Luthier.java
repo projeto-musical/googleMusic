@@ -1,4 +1,4 @@
-ackage com.googlemusic.api.entities;
+package com.googlemusic.api.entities;
 
 import java.util.ArrayList;
 import java.util.List;
