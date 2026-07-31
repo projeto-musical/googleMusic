@@ -21,27 +21,24 @@ import com.googlemusic.api.services.FamiliaService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/familias")
+@RequestMapping("/api/familias")
 @CrossOrigin("*")
 public class FamiliaController {
 
 	@Autowired
 	private FamiliaService service;
 
-	// Cadastrar uma nova família
 	@PostMapping
 	public ResponseEntity<Familia> cadastrar(@Valid @RequestBody Familia familia) {
 		Familia familiaSalva = service.salvar(familia);
 		return ResponseEntity.status(HttpStatus.CREATED).body(familiaSalva);
 	}
 
-	// Listar todas as famílias
 	@GetMapping
 	public ResponseEntity<List<Familia>> listarTodas() {
 		return ResponseEntity.ok(service.listarTodas());
 	}
 
-	// Buscar família por ID
 	@GetMapping("/{id}")
 	public ResponseEntity<Familia> buscarPorId(@PathVariable Long id) {
 		return service.buscarPorId(id)
@@ -49,7 +46,6 @@ public class FamiliaController {
 				.orElse(ResponseEntity.notFound().build());
 	}
 
-	// Atualizar uma família existente
 	@PutMapping("/{id}")
 	public ResponseEntity<Familia> atualizar(
 			@PathVariable Long id,
@@ -63,7 +59,6 @@ public class FamiliaController {
 		}
 	}
 
-	// Deletar uma família
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deletar(@PathVariable Long id) {
 		try {

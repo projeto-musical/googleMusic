@@ -21,27 +21,24 @@ import com.googlemusic.api.services.MarcaService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/marcas")
+@RequestMapping("/api/marcas")
 @CrossOrigin("*")
 public class MarcaController {
 
 	@Autowired
 	private MarcaService service;
 
-	// Cadastrar uma nova marca
 	@PostMapping
 	public ResponseEntity<Marca> cadastrar(@Valid @RequestBody Marca marca) {
 		Marca marcaSalva = service.salvar(marca);
 		return ResponseEntity.status(HttpStatus.CREATED).body(marcaSalva);
 	}
 
-	// Listar todas as marcas
 	@GetMapping
 	public ResponseEntity<List<Marca>> listarTodas() {
 		return ResponseEntity.ok(service.listarTodas());
 	}
 
-	// Buscar marca por ID
 	@GetMapping("/{id}")
 	public ResponseEntity<Marca> buscarPorId(@PathVariable Long id) {
 		return service.buscarPorId(id)
@@ -49,7 +46,6 @@ public class MarcaController {
 				.orElse(ResponseEntity.notFound().build());
 	}
 
-	// Atualizar uma marca existente
 	@PutMapping("/{id}")
 	public ResponseEntity<Marca> atualizar(
 			@PathVariable Long id,
@@ -63,7 +59,6 @@ public class MarcaController {
 		}
 	}
 
-	// Deletar uma marca
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deletar(@PathVariable Long id) {
 		try {
