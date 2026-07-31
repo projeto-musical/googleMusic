@@ -1,67 +1,124 @@
 const API_URL = "http://localhost:8080/api/instrumentos";
+const API_FAMILIAS = "http://localhost:8080/api/familias";
+const API_MARCAS = "http://localhost:8080/api/marcas";
+const API_LUTHIERS = "http://localhost:8080/api/luthiers";
 
-// Verifica se há parâmetros na URL (ex: cadastro.html?id=10)
-const paramsUrl = new URLSearchParams(window.location.search);
-const idEdicao = paramsUrl.get("id"); // Se existir, guarda o ID; se não, fica null
+document.addEventListener("DOMContentLoaded", () => {
 
-// 'async' permite usar 'await' dentro da função para esperar requisições terminarem
-document.addEventListener("DOMContentLoaded", async () => {
-    // 1. Carrega o <select> de gêneros primeiro. 
-    // O 'await' é crucial aqui: garante que as opções existam antes de tentarmos selecionar uma na edição
+    carregarFamilias();
+    carregarMarcas();
+    carregarLuthiers();
 
-    // 2. Se for Edição (tem ID na URL):
-    if (idEdicao) {
-        prepararModoEdicao(); // Ajusta textos e cores da tela
-        await carregarinstrumento(id); // Busca os dados do filme e preenche os campos
+   
+    const form = document.getElementById("form-instrumento");
+    if (form) {
+        form.addEventListener("submit", salvarInstrumento);
     }
-
-    // Adiciona o evento de salvar ao formulário
-    document.getElementById("formCadastro").addEventListener("submit", salvarFilme);
 });
 
-async function carregarDadosFilme(id) {
+async function carregarFamilias() {
     try {
-        const res = await fetch(`${API_URL}/${id}`); // GET /filmes/10
-        const filme = await res.json();
-
-        // Preenche os inputs com os dados recebidos do backend
-        document.getElementById("nomeModelo").value = filme.nomeModelo;
-        document.getElementById("numeroSerie").value = filme.numeroserie;
-        document.getElementById("Anofabricacao").value = filme.anofabricacao;
-        document.getElementById("descricao").value = filme.descricao;
+        const res = await fetch(API_FAMILIAS);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         
-        // Se o filme tem gênero, seleciona automaticamente a option correta no <select>
-       
+        const familias = await res.json();
+        const selectFamilia = document.getElementById("inst-familia");
+        selectFamilia.innerHTML = '<option value="">Selecione...</option>';
+
+        familias.forEach(familia => {
+            const option = document.createElement("option");
+            
+            option.value = familia.idFamilia !== undefined ? familia.idFamilia : familia.id;
+            option.textContent = familia.nome;
+            selectFamilia.appendChild(option);
+        });
     } catch (error) {
-        alert("Erro ao buscar dados do filme: " + error);
-        window.location.href = "filmes.html"; // Volta para listagem em caso de erro (ex: ID inválido)
+        console.error("Erro ao carregar famílias:", error);
     }
 }
 
-function salvarInstrumento(event) {
-    event.preventDefault(); // Evita reload da página
+async function carregarMarcas() {
+    try {
+        const res = await fetch(API_MARCAS);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        
+        const marcas = await res.json();
+        const selectMarca = document.getElementById("inst-marca");
+        selectMarca.innerHTML = '<option value="">Selecione...</option>';
 
-    // Monta o objeto JSON. Nota: 'genero' é enviado como objeto { id: ... } 
-    // para que o JPA no backend faça a associação correta.
+        marcas.forEach(marca => {
+            const option = document.createElement("option");
+            option.value = marca.idMarca !== undefined ? marca.idMarca : marca.id;
+            option.textContent = marca.nome;
+            selectMarca.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Erro ao carregar marcas:", error);
+    }
+}
+
+async function carregarLuthiers() {
+    try {
+        const res = await fetch(API_LUTHIERS);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+        const luthiers = await res.json();
+        const selectLuthier = document.getElementById("inst-luthier");
+        selectLuthier.innerHTML = '<option value="">Selecione...</option>';
+
+        luthiers.forEach(luthier => {
+            const option = document.createElement("option");
+            option.value = luthier.id !== undefined ? luthier.id : luthier.idLuthier;
+            option.textContent = luthier.nome;
+            selectLuthier.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Erro ao carregar luthiers:", error);
+    }
+}
+async function salvarInstrumento(event) {
+    event.preventDefault();
+
+    const idFamiliaVal = parseInt(document.getElementById("inst-familia").value);
+    const idMarcaVal = parseInt(document.getElementById("inst-marca").value);
+    const idLuthierVal = parseInt(document.getElementById("inst-luthier").value);
+
     const instrumento = {
-        Anofabricacao: document.getElementById("nomeModelo").value,
-        Anofabricacao: document.getElementById("numeroSerie").value,
-        descricao: document.getElementById("descricao").value,
-        Anofabricacao: document.getElementById("Anofabricacao").value,
+        nomeModelo: document.getElementById("inst-nome").value,
+        numeroserie: document.getElementById("inst-serie").value,
+        anofabricacao: parseInt(document.getElementById("inst-ano").value),
+        familia: { idFamilia: idFamiliaVal, id: idFamiliaVal },
+        marca: { idMarca: idMarcaVal, id: idMarcaVal },
+        luthier: { id: idLuthierVal },
+        descricao: document.getElementById("inst-descricao").value
     };
 
-    // LÓGICA PRINCIPAL:
-    // Se tem idEdicao, usa PUT (atualizar). Se não, usa POST (criar).
+    try {
+        const res = await fetch(API_URL, {
+            method: "POST",
+            headers: { 
+                "Content-Type": "application/json" 
+            },
+            body: JSON.stringify(instrumento)
+        });
 
+        if (res.ok) {
+            alert("Instrumento cadastrado com sucesso!");
+            document.getElementById("form-instrumento").reset();
+        } else {
+            alert("Erro ao cadastrar instrumento. Verifique os dados fornecidos.");
+        }
+    } catch (err) {
+        alert("Erro de conexão com o servidor: " + err.message);
+    }
+}
 
-    fetch(url, {
-        method: metodo,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(instrumento)
-    })
-    .then(() => {
-        alert("Filme cadastrado com sucesso!");
-        window.location.href = "cadastroInstrumento.html"; // Redireciona para a lista
-    })
-    .catch(err => alert("Erro ao salvar: " + err));
+// Limpa o formulário
+function resetForm(formId) {
+    document.getElementById(formId).reset();
+}
+
+// Alterna tema
+function toggleTheme() {
+    document.body.classList.toggle("dark-theme");
 }
