@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MÚSICOS SENAI</title>
-    <link rel="stylesheet" href="style.css">
+    <title>MÚSICOS SENAI - Catálogo</title>
+    <link rel="stylesheet" href="/Frontend/style/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -22,18 +22,18 @@
             </div>
 
             <nav class="nav-tabs">
-                <button class="tab-btn active" onclick="openTab(event, 'listagem')">
+                <a href="index.html" class="tab-btn active">
                     <i class="fa-solid fa-layer-group"></i> Instrumentos
-                </button>
-                <button class="tab-btn" onclick="openTab(event, 'cad-instrumento')">
+                </a>
+                <a href="/Frontend/pages/cadastroInstrumento.html" class="tab-btn">
                     <i class="fa-solid fa-plus"></i> Instrumento
-                </button>
-                <button class="tab-btn" onclick="openTab(event, 'cad-marca')">
+                </a>
+                <a href="/Frontend/pages/cadastroMarca.html" class="tab-btn">
                     <i class="fa-solid fa-tag"></i> Marca
-                </button>
-                <button class="tab-btn" onclick="openTab(event, 'cad-luthier')">
+                </a>
+                <a href="/Frontend/pages/cadastroLuthier.html" class="tab-btn">
                     <i class="fa-solid fa-screwdriver-wrench"></i> Luthier
-                </button>
+                </a>
             </nav>
 
             <button id="theme-toggle" class="theme-btn" onclick="toggleTheme()" title="Alternar Tema">
@@ -43,8 +43,7 @@
     </header>
 
     <main class="main-wrapper">
-        
-        <section id="listagem" class="tab-content active-content">
+        <section class="tab-content active-content">
             <div class="section-card">
                 <div class="section-header">
                     <div>
@@ -70,7 +69,7 @@
                             </tr>
                         </thead>
                         <tbody id="instrumentos-list">
-                            </tbody>
+                        </tbody>
                     </table>
                     <div id="empty-state" class="empty-state">
                         <i class="fa-solid fa-box-open"></i>
@@ -79,138 +78,8 @@
                 </div>
             </div>
         </section>
-
-        <section id="cad-instrumento" class="tab-content">
-            <div class="form-card">
-                <div class="card-header">
-                    <div class="card-icon"><i class="fa-solid fa-guitar"></i></div>
-                    <div>
-                        <h2>Cadastrar Instrumento</h2>
-                        <p class="subtitle">Informe os dados para inclusão no catálogo</p>
-                    </div>
-                </div>
-                
-                <form id="form-instrumento">
-                    <input type="hidden" id="inst-id" name="id">
-
-                    <div class="form-group">
-                        <label for="inst-nome">Nome / Modelo <span class="required">*</span></label>
-                        <input type="text" id="inst-nome" name="nome" class="form-control" placeholder="Ex: Stratocaster Player" required>
-                    </div>
-
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="inst-familia">Família <span class="required">*</span></label>
-                            <select id="inst-familia" name="familia" class="form-control" required>
-                                <option value="">Selecione...</option>
-                                <option value="CORDAS">Cordas</option>
-                                <option value="SOPRO">Sopro</option>
-                                <option value="PERCUSSAO">Percussão</option>
-                                <option value="TECLAS">Teclas</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="inst-marca">Marca <span class="required">*</span></label>
-                            <select id="inst-marca" name="marcaId" class="form-control" required>
-                                <option value="">Selecione...</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inst-luthier">Luthier Responsável <span class="required">*</span></label>
-                        <select id="inst-luthier" name="luthierId" class="form-control" required>
-                            <option value="">Selecione...</option>
-                        </select>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" onclick="resetForm('form-instrumento')">Limpar</button>
-                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Salvar</button>
-                    </div>
-                </form>
-            </div>
-        </section>
-
-        <section id="cad-marca" class="tab-content">
-            <div class="form-card">
-                <div class="card-header">
-                    <div class="card-icon"><i class="fa-solid fa-tag"></i></div>
-                    <div>
-                        <h2>Cadastrar Marca</h2>
-                        <p class="subtitle">Adicione fabricantes ao sistema</p>
-                    </div>
-                </div>
-                
-                <form id="form-marca">
-                    <input type="hidden" id="marca-id" name="id">
-
-                    <div class="form-group">
-                        <label for="marca-nome">Nome da Marca <span class="required">*</span></label>
-                        <input type="text" id="marca-nome" name="nome" class="form-control" placeholder="Ex: Fender, Yamaha, Gibson" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="marca-origem">País de Origem</label>
-                        <input type="text" id="marca-origem" name="paisOrigem" class="form-control" placeholder="Ex: Estados Unidos, Japão">
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" onclick="resetForm('form-marca')">Limpar</button>
-                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Salvar Marca</button>
-                    </div>
-                </form>
-            </div>
-        </section>
-
-        <section id="cad-luthier" class="tab-content">
-            <div class="form-card">
-                <div class="card-header">
-                    <div class="card-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-                    <div>
-                        <h2>Cadastrar Luthier</h2>
-                        <p class="subtitle">Registre profissionais de manutenção</p>
-                    </div>
-                </div>
-                
-                <form id="form-luthier">
-                    <input type="hidden" id="luthier-id" name="id">
-
-                    <div class="form-group">
-                        <label for="luthier-nome">Nome / Oficina <span class="required">*</span></label>
-                        <input type="text" id="luthier-nome" name="nome" class="form-control" placeholder="Ex: Master Custom Shop" required>
-                    </div>
-
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="luthier-telefone">Telefone / WhatsApp</label>
-                            <input type="tel" id="luthier-telefone" name="telefone" class="form-control" placeholder="(00) 00000-0000">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="luthier-especialidade">Especialidade</label>
-                            <select id="luthier-especialidade" name="especialidade" class="form-control">
-                                <option value="GERAL">Geral</option>
-                                <option value="CORDAS">Cordas</option>
-                                <option value="SOPRO">Sopro</option>
-                                <option value="PERCUSSAO">Percussão</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" onclick="resetForm('form-luthier')">Limpar</button>
-                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Salvar Luthier</button>
-                    </div>
-                </form>
-            </div>
-        </section>
-
     </main>
 
-    <script src="script.js">
-      
-    </script>
+    <script src="/Frontend/script/script.js"></script>
 </body>
 </html>
