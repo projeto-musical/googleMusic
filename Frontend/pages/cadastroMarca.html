@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MÚSICOS SENAI - Novo Luthier</title>
+    <title>MÚSICOS SENAI - Nova Marca</title>
     <link rel="stylesheet" href="/Frontend/style/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,41 +46,29 @@
         <section class="tab-content active-content">
             <div class="form-card">
                 <div class="card-header">
-                    <div class="card-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                    <div class="card-icon"><i class="fa-solid fa-tag"></i></div>
                     <div>
-                        <h2>Cadastrar Luthier</h2>
-                        <p class="subtitle">Registre profissionais de manutenção</p>
+                        <h2>Cadastrar Marca</h2>
+                        <p class="subtitle">Adicione fabricantes ao sistema</p>
                     </div>
                 </div>
                 
-                <form id="form-luthier">
-                    <input type="hidden" id="luthier-id" name="id">
+                <form id="form-marca">
+                    <input type="hidden" id="marca-id" name="id">
 
                     <div class="form-group">
-                        <label for="luthier-nome">Nome / Oficina <span class="required">*</span></label>
-                        <input type="text" id="luthier-nome" name="nome" class="form-control" placeholder="Ex: Master Custom Shop" required>
+                        <label for="marca-nome">Nome da Marca <span class="required">*</span></label>
+                        <input type="text" id="marca-nome" name="nome" class="form-control" placeholder="Ex: Fender, Yamaha, Gibson" required>
                     </div>
 
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="luthier-telefone">Telefone / WhatsApp</label>
-                            <input type="tel" id="luthier-telefone" name="telefone" class="form-control" placeholder="(00) 00000-0000">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="luthier-especialidade">Especialidade</label>
-                            <select id="luthier-especialidade" name="especialidade" class="form-control">
-                                <option value="GERAL">Geral</option>
-                                <option value="CORDAS">Cordas</option>
-                                <option value="SOPRO">Sopro</option>
-                                <option value="PERCUSSAO">Percussão</option>
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label for="marca-origem">País de Origem</label>
+                        <input type="text" id="marca-origem" name="paisOrigem" class="form-control" placeholder="Ex: Estados Unidos, Japão">
                     </div>
 
                     <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" onclick="resetForm('form-luthier')">Limpar</button>
-                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Salvar Luthier</button>
+                        <button type="button" class="btn btn-secondary" onclick="resetForm('form-marca')">Limpar</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Salvar Marca</button>
                     </div>
                 </form>
             </div>
