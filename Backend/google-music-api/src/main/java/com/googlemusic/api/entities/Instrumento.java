@@ -22,8 +22,6 @@ public class Instrumento {
 	@NotBlank
 	private String nomeModelo;
 
-	@NotBlank
-	private String numeroSerie;
 
 	@NotNull
 	private LocalDate anoFabricacao;
