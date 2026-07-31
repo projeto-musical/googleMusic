@@ -38,7 +38,6 @@ public class InstrumentoService {
 		instrumentoExistente.setAnoFabricacao(instrumento.getAnoFabricacao());
 		instrumentoExistente.setDescricao(instrumento.getDescricao());
 		instrumentoExistente.setNomeModelo(instrumento.getNomeModelo());
-		instrumentoExistente.setNumeroSerie(instrumento.getNumeroSerie());
 
 		// Atualizando os relacionamentos
 		instrumentoExistente.setFamilia(instrumento.getFamilia());

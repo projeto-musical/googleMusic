@@ -12,45 +12,48 @@ import com.googlemusic.api.repositories.MarcaRepository;
 @Service
 public class MarcaService {
 
-    @Autowired
-    private MarcaRepository repository;
+	@Autowired
+	private MarcaRepository repository;
 
-    public Marca salvar(Marca marca) {
-        return repository.save(marca);
-    }
+	public Marca salvar(Marca marca) {
+		return repository.save(marca);
+	}
 
-    public List<Marca> listarTodas() {
-        return repository.findAll();
-    }
+	public Marca criar(Marca marca) {
+		return repository.save(marca);
+	}
 
-    public List<Marca> listarTodos() {
-        return repository.findAll();
-    }
+	public List<Marca> listarTodas() {
+		return repository.findAll();
+	}
 
-    public Optional<Marca> buscarPorId(Long id) {
-        return repository.findById(id);
-    }
+	public List<Marca> listarTodos() {
+		return repository.findAll();
+	}
 
-    public Marca buscarPorIdObrigatorio(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Marca não encontrada com o ID: " + id));
-    }
+	public Optional<Marca> buscarPorId(Long id) {
+		return repository.findById(id);
+	}
 
-    public Marca atualizar(Long id, Marca marcaAtualizada) {
-        Marca marca = buscarPorIdObrigatorio(id);
-        marca.setNome(marcaAtualizada.getNome());
-        marca.setPaisOrigem(marcaAtualizada.getPaisOrigem());
-        return repository.save(marca);
-    }
+	public Marca buscarPorIdObrigatorio(Long id) {
+		return repository.findById(id).orElseThrow(() -> new RuntimeException("Marca não encontrada com o ID: " + id));
+	}
 
-    public void deletar(Long id) {
-        if (!repository.existsById(id)) {
-            throw new RuntimeException("Marca não encontrada com o ID: " + id);
-        }
-        repository.deleteById(id);
-    }
+	public Marca atualizar(Long id, Marca marcaAtualizada) {
+		Marca marca = buscarPorIdObrigatorio(id);
+		marca.setNome(marcaAtualizada.getNome());
+		marca.setPaisOrigem(marcaAtualizada.getPaisOrigem());
+		return repository.save(marca);
+	}
 
-    public boolean existePorId(Long id) {
-        return repository.existsById(id);
-    }
+	public void deletar(Long id) {
+		if (!repository.existsById(id)) {
+			throw new RuntimeException("Marca não encontrada com o ID: " + id);
+		}
+		repository.deleteById(id);
+	}
+
+	public boolean existePorId(Long id) {
+		return repository.existsById(id);
+	}
 }

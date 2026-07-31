@@ -34,7 +34,7 @@ public class InstrumentoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Instrumento>> buscarPorId(@PathVariable Long id) {
-        // Alterado de buscarPorId para buscarPorIdObrigatorio para retornar o objeto correto
+
         return ResponseEntity.ok(service.buscarPorId(id));
     }
 

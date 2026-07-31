@@ -22,9 +22,6 @@ public class Instrumento {
 	@NotBlank
 	private String nomeModelo;
 
-	@NotBlank
-	private String numeroSerie;
-
 	@NotNull
 	private LocalDate anoFabricacao;
 
@@ -45,11 +42,10 @@ public class Instrumento {
 	public Instrumento() {
 	}
 
-	public Instrumento(Long id, String nomeModelo, String numeroSerie, LocalDate anoFabricacao, String descricao,
+	public Instrumento(Long id, String nomeModelo, LocalDate anoFabricacao, String descricao,
 			Familia familia, Marca marca, Luthier luthier) {
 		this.id = id;
 		this.nomeModelo = nomeModelo;
-		this.numeroSerie = numeroSerie;
 		this.anoFabricacao = anoFabricacao;
 		this.descricao = descricao;
 		this.familia = familia;
@@ -95,14 +91,6 @@ public class Instrumento {
 
 	public void setNomeModelo(String nomeModelo) {
 		this.nomeModelo = nomeModelo;
-	}
-
-	public String getNumeroSerie() {
-		return numeroSerie;
-	}
-
-	public void setNumeroSerie(String numeroSerie) {
-		this.numeroSerie = numeroSerie;
 	}
 
 	public LocalDate getAnoFabricacao() {

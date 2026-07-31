@@ -1,4 +1,4 @@
-  function openTab(event, tabId) {
+function openTab(event, tabId) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active-content'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
 
