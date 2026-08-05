@@ -1,138 +1,102 @@
-const API_URL = "http://localhost:8080/api/instrumentos";
+const API_URL_LISTAR = 'http://localhost:8080/api/instrumentos';
 
-// Executa assim que o HTML carregar
-document.addEventListener("DOMContentLoaded", () => {
-    carregarTemaSalvo();
-    listarInstrumentos();
+document.addEventListener('DOMContentLoaded', () => {
+    const tabela = document.getElementById('instrumentos-list');
+    if (tabela) {
+        carregarInstrumentos();
+    }
 });
 
-// --- 1. BUSCAR E LISTAR EM COLUNAS (TABELA) ---
-function listarInstrumentos() {
-    const tabela = document.getElementById("instrumentos-list");
-    if (!tabela) return;
+// LISTAR INSTRUMENTOS (GET)
+async function carregarInstrumentos() {
+    const tbody = document.getElementById('instrumentos-list');
+    if (!tbody) return;
 
-    fetch(API_URL)
-        .then(res => {
-            if (!res.ok) {
-                throw new Error(`Erro na requisição. Status: ${res.status}`);
-            }
-            return res.json();
-        })
-        .then(data => {
-            tabela.innerHTML = ""; // Limpa a tabela
+    try {
+        const response = await fetch(API_URL_LISTAR);
+        const instrumentos = await response.json();
 
-            if (!data || data.length === 0) {
-                tabela.innerHTML = `
-                    <tr>
-                        <td colspan="6" style="text-align: center; padding: 2rem; color: var(--text-muted);">
-                            <i class="fa-solid fa-box-open" style="font-size: 1.5rem; display: block; margin-bottom: 8px;"></i>
-                            Nenhum instrumento cadastrado.
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
+        tbody.innerHTML = '';
 
-            // Popula cada linha (tr) da tabela
-            let html = "";
-            data.forEach(item => {
-                const id = item.id || item.idInstrumento || '-';
-                const nomeModelo = item.nomeModelo || item.nome || '-';
-                const familia = item.familia || '-';
-                const marca = item.marca?.nome || item.nomeMarca || '-';
-                const luthier = item.luthier?.nome || item.nomeLuthier || '-';
-
-                html += `
-                    <tr>
-                        <td>${id}</td>
-                        <td><strong>${nomeModelo}</strong></td>
-                        <td>${familia}</td>
-                        <td>${marca}</td>
-                        <td>${luthier}</td>
-                        <td class="text-center">
-                            <button class="btn-action-delete" onclick="excluirInstrumento(${id})" title="Excluir">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            });
-
-            tabela.innerHTML = html;
-        })
-        .catch(erro => {
-            console.error("Erro na requisição:", erro);
-            tabela.innerHTML = `
+        if (instrumentos.length === 0) {
+            tbody.innerHTML = `
                 <tr>
-                    <td colspan="6" style="text-align: center; color: #ef4444; padding: 2rem;">
-                        <i class="fa-solid fa-triangle-exclamation"></i> 
-                        Não foi possível conectar à API (<strong>http://localhost:8080</strong>). Certifique-se de que o backend está rodando.
-                    </td>
+                    <td colspan="6" class="text-center">Nenhum instrumento cadastrado.</td>
                 </tr>
             `;
-        });
-}
-
-// --- 2. EXCLUIR INSTRUMENTO ---
-function excluirInstrumento(id) {
-    if (!id || id === '-') return;
-
-    if (confirm(`Deseja realmente excluir o instrumento de ID ${id}?`)) {
-        fetch(`${API_URL}/${id}`, {
-            method: "DELETE"
-        })
-        .then(res => {
-            if (res.ok) {
-                listarInstrumentos(); // Recarrega a tabela
-            } else {
-                alert("Erro ao tentar excluir o registro.");
-            }
-        })
-        .catch(err => console.error("Erro ao deletar:", err));
-    }
-}
-
-// --- 3. FILTRAR LINHAS DA TABELA ---
-function filtrarTabela() {
-    const input = document.getElementById("search-input").value.toLowerCase();
-    const tabela = document.getElementById("instrumentos-list");
-    const linhas = tabela.getElementsByTagName("tr");
-
-    for (let i = 0; i < linhas.length; i++) {
-        const textoLinha = linhas[i].innerText.toLowerCase();
-        if (textoLinha.includes(input)) {
-            linhas[i].style.display = "";
-        } else {
-            linhas[i].style.display = "none";
+            return;
         }
+
+        instrumentos.forEach(inst => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${inst.id}</td>
+                <td><strong>${inst.nome}</strong></td>
+                <td>${formatarFamilia(inst.familia)}</td>
+                <td>${inst.marca ? inst.marca.nome : '-'}</td>
+                <td>${inst.luthier ? inst.luthier.nome : '-'}</td>
+                <td class="text-center">
+                    <button class="btn-action-delete" onclick="excluirInstrumento(${inst.id})">
+                        <i class="fa-solid fa-trash"></i> Excluir
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    } catch (error) {
+        console.error('Erro ao buscar dados:', error);
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6" class="text-center" style="color: #ef4444;">Erro ao carregar dados do banco. Certifique-se de que o backend está ativo.</td>
+            </tr>
+        `;
     }
 }
 
-// --- 4. TEMA CLARO E ESCURO ---
-function toggleTheme() {
-    document.body.classList.toggle("dark-theme");
-    const isDark = document.body.classList.contains("dark-theme");
-    
-    // Salva no navegador para manter ao mudar de página
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-    atualizarIconeTema(isDark);
-}
+// EXCLUIR INSTRUMENTO (DELETE)
+async function excluirInstrumento(id) {
+    if (!confirm(`Deseja realmente remover o instrumento ID ${id}?`)) {
+        return;
+    }
 
-function carregarTemaSalvo() {
-    const temaSalvo = localStorage.getItem("theme");
-    if (temaSalvo === "dark") {
-        document.body.classList.add("dark-theme");
-        atualizarIconeTema(true);
+    try {
+        const response = await fetch(`${API_URL_LISTAR}/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            alert('Instrumento excluído com sucesso!');
+            carregarInstrumentos();
+        } else {
+            alert('Não foi possível excluir o instrumento.');
+        }
+    } catch (error) {
+        console.error('Erro na exclusão:', error);
+        alert('Erro ao se comunicar com o servidor.');
     }
 }
 
-function atualizarIconeTema(isDark) {
-    const icon = document.querySelector("#theme-toggle i");
-    if (!icon) return;
-    
-    if (isDark) {
-        icon.className = "fa-solid fa-sun";
-    } else {
-        icon.className = "fa-solid fa-moon";
+// FILTRAR TABELA EM TEMPO REAL
+function filtrarTabela() {
+    const input = document.getElementById('search-input');
+    const filter = input.value.toLowerCase();
+    const tbody = document.getElementById('instrumentos-list');
+    const trs = tbody.getElementsByTagName('tr');
+
+    for (let i = 0; i < trs.length; i++) {
+        const tr = trs[i];
+        const textoLinha = tr.textContent || tr.innerText;
+        tr.style.display = textoLinha.toLowerCase().includes(filter) ? '' : 'none';
     }
+}
+
+// FORMATAR EXIBIÇÃO DA FAMÍLIA
+function formatarFamilia(familia) {
+    const mapeamento = {
+        'CORDAS': 'Cordas',
+        'SOPRO': 'Sopro',
+        'PERCUSSAO': 'Percussão',
+        'TECLAS': 'Teclas'
+    };
+    return mapeamento[familia] || familia || '-';
 }

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.googlemusic.api.entities.Instrumento;
+import com.googlemusic.api.enums.Familia;
 
 @Repository
 public interface InstrumentoRepository extends JpaRepository<Instrumento, Long> {
@@ -15,7 +16,7 @@ public interface InstrumentoRepository extends JpaRepository<Instrumento, Long> 
 
     // Método para buscar por ID da Marca (já que em Marca o campo é 'idMarca')
     List<Instrumento> findByMarcaIdMarca(Long idMarca);
-
-    // Método para buscar por ID da Família (já que em Familia o campo é 'idFamilia')
-    List<Instrumento> findByFamiliaIdFamilia(Long idFamilia);
+    
+ // Buscar diretamente pela constante do Enum (ex: CORDAS, SOPRO)
+    List<Instrumento> findByFamilia(Familia familia);
 }

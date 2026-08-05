@@ -3,78 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MÚSICOS SENAI - Nova Marca</title>
-    <link rel="stylesheet" href="/style/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <title>Músicos SENAI - Cadastrar Marca</title>
+    <!-- Ícones FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Arquivo de Estilos -->
+    <link rel="stylesheet" href="/style/style.css">
 </head>
 <body>
 
-    <header class="header">
-        <div class="header-container">
-            <div class="logo">
-                <div class="logo-icon">
-                    <i class="fa-solid fa-guitar"></i>
-                </div>
-                <span>MÚSICOS <strong>SENAI</strong></span>
-            </div>
-
-            <nav class="nav-tabs">
-                <a href="/index.html" class="tab-btn">
-                    <i class="fa-solid fa-layer-group"></i> Instrumentos
-                </a>
-                <a href="/pages/cadastroInstrumento.html" class="tab-btn active">
-                    <i class="fa-solid fa-plus"></i> Instrumento
-                </a>
-                <a href="/pages/cadastroMarca.html" class="tab-btn">
-                    <i class="fa-solid fa-tag"></i> Marca
-                </a>
-                <a href="/pages/cadastroLuthier.html" class="tab-btn">
-                    <i class="fa-solid fa-screwdriver-wrench"></i> Luthier
-                </a>
-            </nav>
-
-            <button id="theme-toggle" class="theme-btn" onclick="toggleTheme()" title="Alternar Tema">
-                <i class="fa-solid fa-moon"></i>
-            </button>
+    <!-- CABEÇALHO / NAVBAR -->
+    <header class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-guitar"></i>
+            <span>MÚSICOS SENAI</span>
         </div>
+        <nav class="nav-links">
+            <a href="/index.html" class="nav-btn"><i class="fa-solid fa-layer-group"></i> Instrumentos</a>
+            <a href="/pages/cadastroInstrumento.html" class="nav-btn"><i class="fa-solid fa-plus"></i> Instrumento</a>
+            <a href="/pages/cadastroMarca.html" class="nav-btn active"><i class="fa-solid fa-tag"></i> Marca</a>
+            <a href="/pages/cadastroLuthier.html" class="nav-btn"><i class="fa-solid fa-wrench"></i> Luthier</a>
+        </nav>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Alternar Tema">
+            <i class="fa-solid fa-moon"></i>
+        </button>
     </header>
 
-    <main class="main-wrapper">
-        <section class="tab-content active-content">
-            <div class="form-card">
-                <div class="card-header">
-                    <div class="card-icon"><i class="fa-solid fa-tag"></i></div>
-                    <div>
-                        <h2>Cadastrar Marca</h2>
-                        <p class="subtitle">Adicione fabricantes ao sistema</p>
-                    </div>
-                </div>
-                
-                <form id="form-marca">
-                    <input type="hidden" id="marca-id" name="id">
-
-                    <div class="form-group">
-                        <label for="marca-nome">Nome da Marca <span class="required">*</span></label>
-                        <input type="text" id="marca-nome" name="nome" class="form-control" placeholder="Ex: Fender, Yamaha, Gibson" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="marca-origem">País de Origem</label>
-                        <input type="text" id="marca-origem" name="paisOrigem" class="form-control" placeholder="Ex: Estados Unidos, Japão">
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-secondary" onclick="resetForm('form-marca')">Limpar</button>
-                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Salvar Marca</button>
-                    </div>
-                </form>
+    <!-- CONTEÚDO PRINCIPAL (FORMULÁRIO MARCA) -->
+    <main class="main-container">
+        <div class="form-card">
+            <div class="form-header">
+                <h2><i class="fa-solid fa-tag"></i> Cadastrar Marca</h2>
+                <p>Informe os dados da marca do fabricante</p>
             </div>
-        </section>
+
+            <form id="form-marca">
+                <input type="hidden" id="marca-id">
+
+                <div class="form-group">
+                    <label for="marca-nome">Nome da Marca *</label>
+                    <input type="text" id="marca-nome" class="form-control" placeholder="Ex: Fender, Gibson, Yamaha" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="marca-origem">País de Origem *</label>
+                    <input type="text" id="marca-origem" class="form-control" placeholder="Ex: Estados Unidos, Japão" required>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="resetForm('form-marca')">
+                        Limpar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-check"></i> Salvar
+                    </button>
+                </div>
+            </form>
+        </div>
     </main>
 
+    <!-- JS DO PROJETO -->
     <script src="/script/script.js"></script>
 </body>
 </html>

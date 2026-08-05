@@ -1,89 +1,73 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MÚSICOS SENAI - Catálogo</title>
-    <link rel="stylesheet" href="./style/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <title>Músicos SENAI - Catálogo</title>
+    <!-- Ícones FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Arquivo de Estilos -->
+    <link rel="stylesheet" href="/style/style.css">
 </head>
-
 <body>
 
-    <header class="header">
-        <div class="header-container">
-            <div class="logo">
-                <div class="logo-icon">
-                    <i class="fa-solid fa-guitar"></i>
-                </div>
-                <span>MÚSICOS <strong>SENAI</strong></span>
-            </div>
-
-            <nav class="nav-tabs">
-                <a href="/index.html" class="tab-btn active">
-                    <i class="fa-solid fa-layer-group"></i> Instrumentos
-                </a>
-                <a href="/pages/cadastroInstrumento.html" class="tab-btn">
-                    <i class="fa-solid fa-plus"></i> Instrumento
-                </a>
-                <a href="/pages/cadastroMarca.html" class="tab-btn">
-                    <i class="fa-solid fa-tag"></i> Marca
-                </a>
-                <a href="/pages/cadastroLuthier.html" class="tab-btn">
-                    <i class="fa-solid fa-screwdriver-wrench"></i> Luthier
-                </a>
-            </nav>
-
-            <button id="theme-toggle" class="theme-btn" onclick="toggleTheme()" title="Alternar Tema">
-                <i class="fa-solid fa-moon"></i>
-            </button>
+    <!-- CABEÇALHO / NAVBAR -->
+    <header class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-guitar"></i>
+            <span>MÚSICOS SENAI</span>
         </div>
+        <nav class="nav-links">
+            <a href="/index.html" class="nav-btn active"><i class="fa-solid fa-layer-group"></i> Instrumentos</a>
+            <a href="/pages/cadastroInstrumento.html" class="nav-btn"><i class="fa-solid fa-plus"></i> Instrumento</a>
+            <a href="/pages/cadastroMarca.html" class="nav-btn"><i class="fa-solid fa-tag"></i> Marca</a>
+            <a href="/pages/cadastroLuthier.html" class="nav-btn"><i class="fa-solid fa-wrench"></i> Luthier</a>
+        </nav>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Alternar Tema">
+            <i class="fa-solid fa-moon"></i>
+        </button>
     </header>
 
-    <main class="main-wrapper">
-        <section class="tab-content active-content">
-            <div class="section-card">
-                <div class="section-header">
-                    <div>
-                        <h2>Catálogo Geral</h2>
-                        <p class="subtitle">Consulte e gerencie todos os instrumentos cadastrados</p>
-                    </div>
-                    <div class="search-box">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" id="search-input" placeholder="Filtrar registros..." class="form-control" onkeyup="filtrarTabela()">
-                    </div>
+    <!-- TABELA DE INSTRUMENTOS -->
+    <main class="table-container">
+        <div class="table-card">
+            <div class="table-header">
+                <div>
+                    <h2>Catálogo de Instrumentos</h2>
+                    <p>Gerencie todos os instrumentos cadastrados no sistema</p>
                 </div>
-
-                <!-- ESTRUTURA EM TABELA / COLUNAS -->
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nome / Modelo</th>
-                                <th>Família</th>
-                                <th>Marca</th>
-                                <th>Luthier</th>
-                                <th class="text-center">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="instrumentos-list">
-                            <!-- O JS renderizará as tr/td aqui -->
-                        </tbody>
-                    </table>
-                </div>
-
+                <a href="/pages/cadastroInstrumento.html" class="btn btn-primary">
+                    <i class="fa-solid fa-plus"></i> Novo Instrumento
+                </a>
             </div>
-        </section>
+
+            <!-- BUSCA/FILTRO -->
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="search-input" onkeyup="filtrarTabela()" placeholder="Buscar por modelo, família ou marca...">
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th># ID</th>
+                            <th>Nome / Modelo</th>
+                            <th>Família</th>
+                            <th>Marca</th>
+                            <th>Luthier</th>
+                            <th class="text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="instrumentos-list">
+                        <!-- Conteúdo inserido dinamicamente via script.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </main>
 
-    <!-- Conexão com o seu script JS -->
-     <script src="script/script.js"></script>
-    <script src="script/listarInstrumentos.js"></script>
+    <!-- JS DO PROJETO -->
+    <script src="/script/script.js"></script>
 </body>
-
 </html>

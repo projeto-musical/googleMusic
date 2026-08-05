@@ -89,6 +89,22 @@ public class Luthier {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public List<Instrumento> getInstrumentos() {
+		return instrumentos;
+	}
+
+	public void setInstrumentos(List<Instrumento> instrumentos) {
+		this.instrumentos = instrumentos;
+	}
 	
 	
 

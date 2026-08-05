@@ -1,7 +1,11 @@
 package com.googlemusic.api.entities;
 import java.time.LocalDate;
 
+import com.googlemusic.api.enums.Familia;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -9,7 +13,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tb_instrumento")
@@ -21,15 +24,13 @@ public class Instrumento {
 
 	@NotBlank
 	private String nomeModelo;
+	
+	@Enumerated(EnumType.STRING)
+    private Familia familia;
 
-	@NotNull
 	private LocalDate anoFabricacao;
 
 	private String descricao;
-
-	@ManyToOne
-	@JoinColumn(name = "id_familia")
-	private Familia familia;
 
 	@ManyToOne
 	@JoinColumn(name = "id_marca")
