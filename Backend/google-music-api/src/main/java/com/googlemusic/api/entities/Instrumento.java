@@ -3,6 +3,7 @@ import java.time.LocalDate;
 
 import com.googlemusic.api.enums.Familia;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -26,8 +27,9 @@ public class Instrumento {
 	private String nomeModelo;
 	
 	@Enumerated(EnumType.STRING)
-    private Familia familia;
-
+	@Column(name = "familia")
+	private Familia familia;
+	
 	private LocalDate anoFabricacao;
 
 	private String descricao;
